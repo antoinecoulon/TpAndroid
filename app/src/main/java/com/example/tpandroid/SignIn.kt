@@ -56,19 +56,42 @@ fun SignInPage() {
             Text(
                 text = "Welcome to the registration page.",
                 modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
-                color = Color.LightGray,
+                color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic
             )
-            TpTextField(fieldText = "Pseudo")
-            TpTextField(fieldText = "Email")
-            TpTextField(fieldText = "Password")
-            TpTextField(fieldText = "Password Confirmation")
-            TpTextField(fieldText = "City Code")
-            TpTextField(fieldText = "City")
-            TpTextField(fieldText = "Phone Number")
-            TpButton(buttonText = "Sign In")
+            WrapPadding {
+                TpTextField(fieldText = "Pseudo")
+            }
+            WrapPadding {
+                TpTextField(fieldText = "Email")
+            }
+            WrapPadding {
+                TpTextField(fieldText = "Password")
+            }
+            WrapPadding {
+                TpTextField(fieldText = "Password Confirmation")
+            }
+            WrapPadding {
+                TpTextField(fieldText = "City Code")
+            }
+            WrapPadding {
+                TpTextField(fieldText = "City")
+            }
+            WrapPadding {
+                TpTextField(fieldText = "Phone Number")
+            }
+            WrapPadding {
+                TpButton(buttonText = "Sign In")
+            }
             Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "By registering, I accept the Terms of service and the Privacy policy",
+                modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
+                color = Color(0xFFFDDFD9),
+                textAlign = TextAlign.Center,
+                fontStyle = FontStyle.Italic
+            )
         }
     }
 }
