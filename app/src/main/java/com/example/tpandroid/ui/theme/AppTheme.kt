@@ -62,7 +62,7 @@ fun TpTextField(fieldText : String = "", icon: @Composable (() -> Unit)? = null)
 
 // Buttons
 @Composable
-fun TpButton(buttonText : String){
+fun TpButton(buttonText: String){
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {},
