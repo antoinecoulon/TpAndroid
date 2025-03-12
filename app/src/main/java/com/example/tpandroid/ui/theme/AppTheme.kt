@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -47,7 +44,7 @@ fun Page(content: @Composable () -> Unit) {
 
 // Text field
 @Composable
-fun TpTextField(modifier: Modifier = Modifier, fieldText : String = "", icon: @Composable (() -> Unit)? = null){
+fun TpTextField(fieldText : String = "", icon: @Composable (() -> Unit)? = null){
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = "",
@@ -65,7 +62,7 @@ fun TpTextField(modifier: Modifier = Modifier, fieldText : String = "", icon: @C
 
 // Buttons
 @Composable
-fun TpButton(buttonText : String, modifier: Modifier = Modifier){
+fun TpButton(buttonText : String){
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {},
