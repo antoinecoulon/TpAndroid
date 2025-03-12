@@ -89,7 +89,7 @@ fun WrapPadding(content: @Composable () -> Unit){
 }
 
 @Composable
-fun RowScope.WrapPaddingRowWeight(weight: Float = 1f, content: @Composable () -> Unit){
+fun RowScope.WrapPaddingRowWeight(modifier: Modifier = Modifier, weight: Float = 1f, content: @Composable () -> Unit){
     Box(modifier = Modifier.padding(8.dp).weight(weight)) {
         content()
     }
