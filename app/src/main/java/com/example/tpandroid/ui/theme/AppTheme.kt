@@ -78,7 +78,7 @@ fun TpButton(buttonText : String, modifier: Modifier = Modifier){
                 listOf(Color(0xFFFF5722), Color(0xFF673AB7))
             )).fillMaxWidth().padding(vertical = 12.dp)
         ){
-            Text(buttonText)
+            Text(text = buttonText, fontSize = 16.sp)
         }
     }
 }
