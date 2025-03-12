@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.tpandroid.R
 
 // Main theme
@@ -51,7 +53,7 @@ fun TpTextField(modifier: Modifier = Modifier, fieldText : String = "", icon: @C
         value = "",
         onValueChange = {},
         placeholder = {
-            Text(text = fieldText, color = Color(0xFFFDDFD9))
+            Text(text = fieldText, color = Color(0xFFFDDFD9), fontSize = 16.sp)
         },
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color.Transparent,
@@ -83,7 +85,7 @@ fun TpButton(buttonText : String, modifier: Modifier = Modifier){
 
 @Composable
 fun WrapPadding(content: @Composable () -> Unit){
-    Box(modifier = Modifier.padding(8.dp)) {
+    Box(modifier = Modifier.padding(4.dp)) {
         content()
     }
 }
