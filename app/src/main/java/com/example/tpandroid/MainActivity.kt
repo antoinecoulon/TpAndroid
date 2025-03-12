@@ -93,7 +93,7 @@ fun TpPage() {
                 )
             }
             WrapPadding {
-                TpButton(buttonText = "I forgot my password!")
+                TpButton(buttonText = "I forgot my password !")
             }
             WrapPadding {
                 TpButton(buttonText = "Login")
@@ -105,11 +105,12 @@ fun TpPage() {
                     color = Color(0xFFFDDFD9),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
-                    fontStyle = FontStyle.Italic
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 20.sp
                 )
             }
             WrapPadding {
-                TpButton(buttonText = "Register now!")
+                TpButton(buttonText = "Register now !")
             }
         }
     }
