@@ -90,7 +90,9 @@ fun SignInPage() {
                 modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
                 color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center,
-                fontStyle = FontStyle.Italic
+                fontStyle = FontStyle.Italic,
+                fontSize = 20.sp,
+                lineHeight = 24.sp
             )
         }
     }
