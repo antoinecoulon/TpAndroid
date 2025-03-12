@@ -1,11 +1,9 @@
 package com.example.tpandroid
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,18 +24,6 @@ import coil3.compose.AsyncImage
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
 import com.example.tpandroid.ui.theme.WrapPaddingRowWeight
-
-class ArticleActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TpAndroidTheme {
-                ArticlePage()
-            }
-        }
-    }
-}
 
 object ArticleRepository {
     fun getArticles(): List<Article> {
@@ -51,7 +36,7 @@ object ArticleRepository {
 }
 
 @Composable
-fun ArticlePage() {
+fun ArticleScreen() {
     val articles = ArticleRepository.getArticles()
 
     Page {
@@ -103,8 +88,8 @@ fun ArticlePage() {
 
 @Preview(showBackground = true)
 @Composable
-fun ArticlePagePreview() {
+fun ArticleScreenPreview() {
     TpAndroidTheme {
-        ArticlePage()
+        ArticleScreen()
     }
 }

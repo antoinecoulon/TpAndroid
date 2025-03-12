@@ -1,15 +1,12 @@
 package com.example.tpandroid
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,26 +19,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.tpandroid.navigation.Screens
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
 import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.TpTextField
 import com.example.tpandroid.ui.theme.WrapPadding
 
-class SignInActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TpAndroidTheme {
-                SignInPage()
-            }
-        }
-    }
-}
-
 @Composable
-fun SignInPage() {
+fun SignInScreen(navController: NavController) {
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
             Spacer(modifier = Modifier.weight(1f))
@@ -82,7 +70,10 @@ fun SignInPage() {
                 TpTextField(fieldText = "Phone Number")
             }
             WrapPadding {
-                TpButton(buttonText = "Sign In")
+                TpButton(
+                    buttonText = "Sign In",
+                    onClick = {navController.navigate(Screens.Home.route)}
+                )
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
@@ -91,8 +82,8 @@ fun SignInPage() {
                 color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
-                fontSize = 20.sp,
-                lineHeight = 24.sp
+                fontSize = 16.sp,
+                lineHeight = 16.sp
             )
         }
     }
@@ -100,8 +91,10 @@ fun SignInPage() {
 
 @Preview(showBackground = true)
 @Composable
-fun SignInPagePreview() {
+fun SignInScreenPreview() {
     TpAndroidTheme {
-        SignInPage()
+        SignInScreen(
+            navController = rememberNavController()
+        )
     }
 }
