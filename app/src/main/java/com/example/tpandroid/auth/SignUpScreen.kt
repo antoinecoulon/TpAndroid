@@ -29,7 +29,7 @@ import com.example.tpandroid.ui.theme.TpTextField
 import com.example.tpandroid.ui.theme.WrapPadding
 
 @Composable
-fun SignInScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController) {
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
             Spacer(modifier = Modifier.weight(1f))
@@ -71,7 +71,7 @@ fun SignInScreen(navController: NavController) {
             }
             WrapPadding {
                 TpButton(
-                    buttonText = "Sign In",
+                    buttonText = "Sign Up",
                     onClick = {navController.navigate(Screens.Home.route)}
                 )
             }
@@ -91,9 +91,9 @@ fun SignInScreen(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun SignInScreenPreview() {
+fun SignUpScreenPreview() {
     TpAndroidTheme {
-        SignInScreen(
+        SignUpScreen(
             navController = rememberNavController()
         )
     }

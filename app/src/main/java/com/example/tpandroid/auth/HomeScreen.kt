@@ -81,7 +81,7 @@ fun HomeScreen(navController: NavController) {
             }
             WrapPadding {
                 TpButton(
-                    buttonText = "Login",
+                    buttonText = "Sign In",
                     onClick = {navController.navigate(Screens.Articles.route)}
                 )
             }
@@ -99,7 +99,7 @@ fun HomeScreen(navController: NavController) {
             WrapPadding {
                 TpButton(
                     buttonText = "Register now !",
-                    onClick = {navController.navigate(Screens.SignIn.route)}
+                    onClick = {navController.navigate(Screens.SignUp.route)}
                 )
             }
         }
