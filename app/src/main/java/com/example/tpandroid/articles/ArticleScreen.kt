@@ -93,7 +93,9 @@ fun ArticleScreen() {
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            TpButton(buttonText = "Ajouter un article", onClick = {})
+            TpButton(buttonText = "Ajouter un article", onClick = {
+                articleRepository.addArticle("Test", "test test test")
+            })
         }
     }
 }
