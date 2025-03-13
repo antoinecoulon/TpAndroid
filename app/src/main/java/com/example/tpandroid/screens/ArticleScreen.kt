@@ -1,4 +1,4 @@
-package com.example.tpandroid
+package com.example.tpandroid.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,8 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.example.tpandroid.Article
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
+import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.WrapPaddingRowWeight
 
 object ArticleRepository {
@@ -78,6 +80,7 @@ fun ArticleScreen() {
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
+            TpButton(buttonText = "Ajouter un article", onClick = {})
         }
     }
 }

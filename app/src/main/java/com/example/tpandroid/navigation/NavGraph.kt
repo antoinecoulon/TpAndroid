@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
-import com.example.tpandroid.ArticleScreen
-import com.example.tpandroid.HomeScreen
-import com.example.tpandroid.RecoveryScreen
-import com.example.tpandroid.SignInScreen
+import com.example.tpandroid.screens.ArticleScreen
+import com.example.tpandroid.screens.HomeScreen
+import com.example.tpandroid.screens.RecoveryScreen
+import com.example.tpandroid.screens.SignInScreen
 
 @Composable
 fun NavGraph (navController: NavHostController){
