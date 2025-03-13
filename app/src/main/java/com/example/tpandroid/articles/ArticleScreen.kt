@@ -44,19 +44,11 @@ class ArticleActivity : ComponentActivity() {
     }
 }
 
-object ArticleRepository {
-    fun getArticles(): List<Article> {
-        return listOf(
-            Article("Article1", "Un premier article", "img_24"),
-            Article("Article2", "Un deuxième article", "img_27"),
-            Article("Article3", "Un troisième article", "img_076"),
-        )
-    }
-}
+val articleRepository = ArticleRepository()
 
 @Composable
 fun ArticleScreen() {
-    val articles = ArticleRepository.getArticles()
+    val articles = articleRepository.getArticles()
 
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
