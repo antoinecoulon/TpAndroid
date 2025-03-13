@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,42 +66,42 @@ fun SignUpScreen(navController: NavController) {
                 )
             }
             Text(
-                text = "Welcome to the registration page.",
+                text = stringResource(R.string.app_msg_welcome_registration),
                 modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
                 color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic
             )
             WrapPadding {
-                TpTextField(fieldText = "Pseudo")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_pseudo))
             }
             WrapPadding {
-                TpTextField(fieldText = "Email")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_email))
             }
             WrapPadding {
-                TpTextField(fieldText = "Password")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_password))
             }
             WrapPadding {
-                TpTextField(fieldText = "Password Confirmation")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_password_confirm))
             }
             WrapPadding {
-                TpTextField(fieldText = "City Code")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_city_code))
             }
             WrapPadding {
-                TpTextField(fieldText = "City")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_city))
             }
             WrapPadding {
-                TpTextField(fieldText = "Phone Number")
+                TpTextField(fieldText = stringResource(R.string.app_field_text_phone_number))
             }
             WrapPadding {
                 TpButton(
-                    buttonText = "Sign Up",
+                    buttonText = stringResource(R.string.app_btn_text_sign_up),
                     onClick = {navController.navigate(Screens.Home.route)}
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "By registering, I accept the Terms of service and the Privacy policy",
+                text = stringResource(R.string.app_msg_terms_service_advice),
                 modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
                 color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center,

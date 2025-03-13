@@ -7,4 +7,12 @@
     <string name="app_btn_text_sign_in">Sign In</string>
     <string name="app_msg_no_account">Don\'t have an account ?</string>
     <string name="app_btn_text_register">Register now !</string>
+    <string name="app_msg_welcome_registration">Welcome to the registration page.</string>
+    <string name="app_field_text_pseudo">Pseudo</string>
+    <string name="app_field_text_password_confirm">Password Confirmation</string>
+    <string name="app_field_text_city_code">City Code</string>
+    <string name="app_field_text_city">City</string>
+    <string name="app_field_text_phone_number">Phone Number</string>
+    <string name="app_btn_text_sign_up">Sign Up</string>
+    <string name="app_msg_terms_service_advice">By registering, I accept the Terms of service and the Privacy policy</string>
 </resources>
