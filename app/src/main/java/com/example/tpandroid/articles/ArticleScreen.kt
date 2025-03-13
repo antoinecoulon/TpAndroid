@@ -14,12 +14,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
+import com.example.tpandroid.R
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
 import com.example.tpandroid.ui.theme.TpButton
@@ -50,7 +52,7 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
         Column(modifier = Modifier.padding(32.dp)) {
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "Articles",
+                text = stringResource(R.string.app_title_articles),
                 modifier = Modifier
                     .padding(bottom = 32.dp)
                     .fillMaxWidth(),
@@ -89,7 +91,7 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            TpButton(buttonText = "Ajouter un article", onClick = {
+            TpButton(buttonText = stringResource(R.string.app_btn_text_add_article), onClick = {
                 viewModel.addArticle("Test", "test test test")
             })
         }

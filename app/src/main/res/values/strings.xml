@@ -15,4 +15,9 @@
     <string name="app_field_text_phone_number">Phone Number</string>
     <string name="app_btn_text_sign_up">Sign Up</string>
     <string name="app_msg_terms_service_advice">By registering, I accept the Terms of service and the Privacy policy</string>
+    <string name="app_title_password_recovery">Password Recovery</string>
+    <string name="app_btn_text_recovery_send_email">Send me an email !</string>
+    <string name="app_msg_dont_forget_next_time">Next time don\'t forget your password dude !</string>
+    <string name="app_title_articles">Articles</string>
+    <string name="app_btn_text_add_article">Add an article</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,20 +32,20 @@ import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.TpTextField
 import com.example.tpandroid.ui.theme.WrapPadding
 
-class RecoveryActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TpAndroidTheme {
-                Surface {
-                    val navController = rememberNavController()
-                    NavGraph(navController = navController)
-                }
-            }
-        }
-    }
-}
+//class RecoveryActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        enableEdgeToEdge()
+//        setContent {
+//            TpAndroidTheme {
+//                Surface {
+//                    val navController = rememberNavController()
+//                    NavGraph(navController = navController)
+//                }
+//            }
+//        }
+//    }
+//}
 
 @Composable
 fun RecoveryScreen(navController: NavController) {
@@ -52,7 +53,7 @@ fun RecoveryScreen(navController: NavController) {
         Column(modifier = Modifier.padding(32.dp)) {
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "Password Recovery",
+                text = stringResource(R.string.app_title_password_recovery),
                 modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
                 fontSize = 32.sp, color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center
@@ -60,7 +61,7 @@ fun RecoveryScreen(navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
             WrapPadding {
                 TpTextField(
-                    fieldText = "Email",
+                    fieldText = stringResource(R.string.app_field_text_email),
                     icon = {
                         Icon(
                             painter = painterResource(id = R.drawable.mail),
@@ -70,11 +71,11 @@ fun RecoveryScreen(navController: NavController) {
                     })
             }
             WrapPadding {
-                TpButton(buttonText = "Send me an email !", onClick = {navController.navigate(Screens.Home.route)})
+                TpButton(buttonText = stringResource(R.string.app_btn_text_recovery_send_email), onClick = {navController.navigate(Screens.Home.route)})
             }
             Spacer(modifier = Modifier.weight(2f))
             Text(
-                text = "Next time don't forget your password dude !",
+                text = stringResource(R.string.app_msg_dont_forget_next_time),
                 color = Color(0xFFFDDFD9),
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
