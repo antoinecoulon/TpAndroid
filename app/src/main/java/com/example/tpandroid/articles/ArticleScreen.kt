@@ -82,7 +82,7 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
 
                         WrapPaddingRowWeight(weight = 2f) {
                             AsyncImage(
-                                model = "https://picsum.photos/200",
+                                model = "${article.imgPath}",
                                 contentDescription = "Image ${article.title}",
                                 modifier = Modifier.fillMaxWidth().height(50.dp)
                             )
