@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,14 +57,14 @@ fun HomeScreen(navController: NavController) {
             Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 Icon(
                     painter = painterResource(id = R.drawable.face),
-                    contentDescription = "Face",
+                    contentDescription = "face",
                     modifier = Modifier.align(Alignment.Center).size(96.dp),
                     tint = Color(0xFFFDDFD9)
                 )
             }
             WrapPadding {
                 Text(
-                    text = "Please be aware when you enter credentials in the login page.",
+                    text = stringResource(R.string.app_msg_credentials_aware),
                     modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
                     color = Color(0xFFFDDFD9),
                     textAlign = TextAlign.Center,
@@ -72,7 +73,7 @@ fun HomeScreen(navController: NavController) {
             }
             WrapPadding {
                 TpTextField(
-                    fieldText = "Email",
+                    fieldText = stringResource(R.string.app_field_text_email),
                     icon = {
                         Icon(
                             painter = painterResource(id = R.drawable.mail),
@@ -84,7 +85,7 @@ fun HomeScreen(navController: NavController) {
             }
             WrapPadding {
                 TpTextField(
-                    fieldText = "Password",
+                    fieldText = stringResource(R.string.app_field_text_password),
                     icon = {
                         Icon(
                             painter = painterResource(id = R.drawable.key),
@@ -96,20 +97,20 @@ fun HomeScreen(navController: NavController) {
             }
             WrapPadding {
                 TpButton(
-                    buttonText = "I forgot my password !",
+                    buttonText = stringResource(R.string.app_btn_text_forgot_password),
                     onClick = {navController.navigate(Screens.Recovery.route)}
                 )
             }
             WrapPadding {
                 TpButton(
-                    buttonText = "Sign In",
+                    buttonText = stringResource(R.string.app_btn_text_sign_in),
                     onClick = {navController.navigate(Screens.Articles.route)}
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
             WrapPadding {
                 Text(
-                    text = "Don't have an account ?",
+                    text = stringResource(R.string.app_msg_no_account),
                     color = Color(0xFFFDDFD9),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
@@ -119,7 +120,7 @@ fun HomeScreen(navController: NavController) {
             }
             WrapPadding {
                 TpButton(
-                    buttonText = "Register now !",
+                    buttonText = stringResource(R.string.app_btn_text_register),
                     onClick = {navController.navigate(Screens.SignUp.route)}
                 )
             }

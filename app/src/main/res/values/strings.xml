@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TpAndroid</string>
+    <string name="app_msg_credentials_aware">Please be aware when you enter credentials in the login page.</string>
+    <string name="app_field_text_email">Email</string>
+    <string name="app_field_text_password">Password</string>
+    <string name="app_btn_text_forgot_password">I forgot my password !</string>
+    <string name="app_btn_text_sign_in">Sign In</string>
+    <string name="app_msg_no_account">Don\'t have an account ?</string>
+    <string name="app_btn_text_register">Register now !</string>
 </resources>
