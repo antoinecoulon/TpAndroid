@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -50,7 +52,6 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
     
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
-            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = stringResource(R.string.app_title_articles),
                 modifier = Modifier
@@ -60,6 +61,10 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
                 textAlign = TextAlign.Center,
                 fontSize = 40.sp
             )
+            TpButton(buttonText = stringResource(R.string.app_btn_text_add_article), onClick = {
+                viewModel.addArticle("Test", "test test test")
+            })
+            Spacer(modifier = Modifier.weight(1f))
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
                 items(articles) { article ->
                     Row {
@@ -91,9 +96,6 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            TpButton(buttonText = stringResource(R.string.app_btn_text_add_article), onClick = {
-                viewModel.addArticle("Test", "test test test")
-            })
         }
     }
 }
