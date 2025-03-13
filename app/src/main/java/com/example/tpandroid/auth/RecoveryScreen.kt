@@ -1,4 +1,4 @@
-package com.example.tpandroid.screens
+package com.example.tpandroid.auth
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

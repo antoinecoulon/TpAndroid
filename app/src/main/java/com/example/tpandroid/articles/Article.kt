@@ -1,4 +1,4 @@
-package com.example.tpandroid
+package com.example.tpandroid.articles
 
 data class Article(
     var title: String,
