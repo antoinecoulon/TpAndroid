@@ -62,7 +62,7 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
                 fontSize = 40.sp
             )
             TpButton(buttonText = stringResource(R.string.app_btn_text_add_article), onClick = {
-                viewModel.addArticle("Test", "test test test")
+                viewModel.addArticle("Test", "test test test", "https://picsum.photos/200")
             })
             Spacer(modifier = Modifier.weight(1f))
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
