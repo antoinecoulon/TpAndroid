@@ -13,7 +13,7 @@ interface ApiService {
     @GET("articles/{id}") suspend fun getArticle(@Path("id") id: Int): Response<Article>
 
     object RetrofitInstance {
-        private const val BASE_URL = "http://10.14.200.8:3000/"
+        private const val BASE_URL = "http://10.0.2.2:3000/"
 
         val api: ApiService by lazy {
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
