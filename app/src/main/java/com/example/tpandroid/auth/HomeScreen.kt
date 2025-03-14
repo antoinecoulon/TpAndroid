@@ -109,6 +109,13 @@ fun HomeScreen(navController: NavController) {
             }
             Spacer(modifier = Modifier.weight(1f))
             WrapPadding {
+                TpButton(
+                    buttonText = stringResource(R.string.app_btn_text_disney),
+                    onClick = {navController.navigate(Screens.Characters.route)}
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            WrapPadding {
                 Text(
                     text = stringResource(R.string.app_msg_no_account),
                     color = Color(0xFFFDDFD9),

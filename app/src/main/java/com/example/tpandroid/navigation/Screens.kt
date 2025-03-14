@@ -5,4 +5,7 @@ sealed class Screens(val route: String) {
     object Recovery: Screens("recovery_screen")
     object SignUp: Screens("signup_screen")
     object Articles: Screens("articles_screen")
+
+    // Disney
+    object Characters: Screens("characters_screen")
 }

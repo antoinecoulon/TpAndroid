@@ -20,4 +20,5 @@
     <string name="app_msg_dont_forget_next_time">Next time don\'t forget your password dude !</string>
     <string name="app_title_articles">Articles</string>
     <string name="app_btn_text_add_article">Add an article</string>
+    <string name="app_btn_text_disney">Disney</string>
 </resources>

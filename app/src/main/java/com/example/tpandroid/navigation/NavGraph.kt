@@ -1,15 +1,14 @@
 package com.example.tpandroid.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
 import com.example.tpandroid.articles.ArticleScreen
-import com.example.tpandroid.articles.ArticleViewModel
 import com.example.tpandroid.auth.HomeScreen
 import com.example.tpandroid.auth.RecoveryScreen
 import com.example.tpandroid.auth.SignUpScreen
+import com.example.tpandroid.disney.CharactersScreen
 
 @Composable
 fun NavGraph (navController: NavHostController){
@@ -25,6 +24,9 @@ fun NavGraph (navController: NavHostController){
         }
         composable(route = Screens.Articles.route){
             ArticleScreen()
+        }
+        composable(route = Screens.Characters.route) {
+            CharactersScreen()
         }
     }
 }
