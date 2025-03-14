@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,28 +29,14 @@ import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
 import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.WrapPaddingRowWeight
-
-//class ArticleActivity : ComponentActivity() {
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContent {
-//            TpAndroidTheme {
-//                Surface {
-//                    val navController = rememberNavController()
-//                    NavGraph(navController = navController)
-//                }
-//            }
-//
-//        }
-//    }
-//}
+import java.util.logging.ErrorManager
 
 @Composable
 fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewModel.Factory)) {
-    val articles by viewModel.articles.collectAsState()
-    
+    val articlesResult by viewModel.articles.collectAsState()
+
+    LaunchedEffect(Unit) { viewModel.fetchArticles() }
+
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
             Text(
@@ -61,36 +48,47 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel(factory = ArticleViewM
                 textAlign = TextAlign.Center,
                 fontSize = 40.sp
             )
-            TpButton(buttonText = stringResource(R.string.app_btn_text_add_article), onClick = {
-                viewModel.addArticle("Test", "test test test", "https://picsum.photos/200")
-            })
+//            TpButton(buttonText = stringResource(R.string.app_btn_text_add_article), onClick = {
+//                viewModel.addArticle(1, "Test", "test test test", "Antoine", "https://picsum.photos/200")
+//            })
             Spacer(modifier = Modifier.weight(1f))
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
-                items(articles) { article ->
-                    Row {
-                        WrapPaddingRowWeight {
-                            Text(
-                                text = article.title,
-                                modifier = Modifier.fillMaxWidth(),
-                                color = Color(0xFFFDDFD9),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                        WrapPaddingRowWeight(weight = 2f) {
-                            Text(
-                                text = article.desc,
-                                modifier = Modifier.fillMaxWidth(),
-                                color = Color(0xFFFDDFD9),
-                                textAlign = TextAlign.Center
-                            )
-                        }
+                articlesResult.let { result ->
+                    when {
+                        result.isSuccess -> {
+                            val articles = result.getOrNull() ?: emptyList()
+                            items(articles) { article ->
+                                Row {
+                                    WrapPaddingRowWeight {
+                                        Text(
+                                            text = article.title,
+                                            modifier = Modifier.fillMaxWidth(),
+                                            color = Color(0xFFFDDFD9),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                    WrapPaddingRowWeight(weight = 2f) {
+                                        Text(
+                                            text = article.desc,
+                                            modifier = Modifier.fillMaxWidth(),
+                                            color = Color(0xFFFDDFD9),
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
 
-                        WrapPaddingRowWeight(weight = 2f) {
-                            AsyncImage(
-                                model = "${article.imgPath}",
-                                contentDescription = "Image ${article.title}",
-                                modifier = Modifier.fillMaxWidth().height(50.dp)
-                            )
+                                    WrapPaddingRowWeight(weight = 2f) {
+                                        AsyncImage(
+                                            model = "${article.imgPath}",
+                                            contentDescription = "Image ${article.title}",
+                                            modifier = Modifier.fillMaxWidth().height(50.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        result.isFailure -> {
+                            val exception = result.exceptionOrNull()
+                            throw Error(exception?.message)
                         }
                     }
                 }

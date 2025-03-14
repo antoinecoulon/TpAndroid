@@ -3,28 +3,28 @@ package com.example.tpandroid.articles
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class ArticleViewModel(private val articleRepository: ArticleRepository) : ViewModel() {
-    private val _articles = MutableStateFlow<List<Article>>(emptyList())
-    val articles: StateFlow<List<Article>> = _articles
+    private val _articles = MutableStateFlow<Result<List<Article>>>(Result.success(emptyList()))
+    val articles: StateFlow<Result<List<Article>>> = _articles
 
-    init {
-        loadArticles()
+    fun fetchArticles() {
+        viewModelScope.launch {
+            val result = articleRepository.fetchArticles()
+            _articles.value = result
+        }
     }
 
-    private fun loadArticles() {
-        val loadedArticles = articleRepository.getArticles()
-        _articles.value = loadedArticles
-    }
-
-    fun addArticle(title: String, desc: String, imgPath: String? = null) {
-        val newArticle = Article(title, desc, imgPath)
-        val updatedList = _articles.value + newArticle
-        _articles.value = updatedList
-    }
+//    fun addArticle(id: Int, title: String, desc: String, author: String, imgPath: String? = null) {
+//        val newArticle = Article(id, title, desc, author, imgPath)
+//        val updatedList = _articles.value + newArticle
+//        _articles.value = updatedList
+//    }
 
     // ViewModel Factory
     companion object {

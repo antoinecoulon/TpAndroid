@@ -1,23 +1,37 @@
 package com.example.tpandroid.articles
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlin.Result
+
 class ArticleRepository {
-    private val articles = mutableListOf(
-        Article("Article1", "Un premier article", "https://picsum.photos/200"),
-        Article("Article2", "Un deuxième article", "https://picsum.photos/210"),
-        Article("Article3", "Un troisième article", "https://picsum.photos/220")
-    )
+    private val apiService: ApiService = ApiService.RetrofitInstance.api
 
-    fun getArticles(): List<Article> {
-        return articles.toList()
+    suspend fun fetchArticles(): Result<List<Article>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getArticles()
+                if (response.isSuccessful) {
+                    val articleResponse = response.body()
+                    Result.success(articleResponse?.data ?: emptyList())
+                } else {
+                    Result.failure(Exception("Error: ${response.errorBody()}"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
     }
 
-    fun addArticle(title: String, desc: String, imgPath: String? = null) {
-        // Créer une instance d'Article
-        val newArticle = Article(
-            title = title,
-            desc = desc,
-            imgPath = imgPath ?: "default_image"
-        )
-        articles.add(newArticle)
-    }
+//    fun addArticle(id: Int, title: String, desc: String, author: String, imgPath: String? = null) {
+//        // Créer une instance d'Article
+//        val newArticle = Article(
+//            id = id,
+//            title = title,
+//            desc = desc,
+//            author = author,
+//            imgPath = imgPath ?: "default_image"
+//        )
+//        articles.add(newArticle)
+//    }
 }
