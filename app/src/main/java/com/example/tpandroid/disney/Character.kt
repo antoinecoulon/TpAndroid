@@ -22,7 +22,7 @@ class Character(
     @Json(name= "_id") val id: Int,
     val sourceUrl: String,
     val name: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val films: List<String>,
     val tvShows: List<String>
 )
