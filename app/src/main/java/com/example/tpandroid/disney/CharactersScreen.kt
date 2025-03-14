@@ -1,5 +1,6 @@
 package com.example.tpandroid.disney
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,16 +30,23 @@ import coil3.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
+import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.WrapPaddingRowWeight
+import kotlin.math.log
 
 @Composable
 fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = CharacterViewModel.Factory)) {
     val charactersResult by viewModel.characters.collectAsState()
+    val infosResult by viewModel.infos.collectAsState()
 
-    LaunchedEffect(Unit) { viewModel.fetchCharacters() }
+    LaunchedEffect(Unit) {
+        viewModel.fetchCharacters()
+        viewModel.fetchInfos()
+    }
 
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
+
             Text(
                 text = stringResource(R.string.app_title_disney_characters),
                 modifier = Modifier
@@ -48,7 +56,38 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
                 textAlign = TextAlign.Center,
                 fontSize = 40.sp
             )
+
             HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = 2.dp, color = Color(0xFFFDDFD9))
+
+            infosResult.let { result ->
+                when {
+                    result.isSuccess -> {
+                        val info = infosResult.getOrNull()
+                        Row {
+                            WrapPaddingRowWeight {
+                                TpButton(buttonText = "Page précédente", onClick = {
+                                    info?.previousPage?.let { url ->
+                                        val page = extractPageNumberFromUrl(url)
+                                        viewModel.fetchCharacters(page = page)
+                                    }
+                                })
+                                TpButton(buttonText = "Page suivante", onClick = {
+                                    info?.nextPage?.let { url ->
+                                        val page = extractPageNumberFromUrl(url)
+                                        viewModel.fetchCharacters(page = page)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    result.isFailure -> {
+                        val exception = result.exceptionOrNull()
+                        throw Error(exception?.message)
+                    }
+                }
+            }
+
+            HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = Color(0xFFFDDFD9))
 
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
                 charactersResult.let { result ->
@@ -64,14 +103,6 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
                                         textAlign = TextAlign.Center
                                     )
                                 }
-//                                Row {
-//                                    Text(
-//                                        text = character.sourceUrl,
-//                                        modifier = Modifier.fillMaxWidth(),
-//                                        color = Color(0xFFFDDFD9),
-//                                        textAlign = TextAlign.Center
-//                                    )
-//                                }
                                 Row {
                                     AsyncImage(
                                         model = character.imageUrl,
@@ -92,6 +123,16 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
             Spacer(modifier = Modifier.weight(1f))
         }
     }
+}
+
+fun extractPageNumberFromUrl(url: String): Int {
+    val regex = Regex("""page=(\d+)""")
+    val matchResult = regex.find(url)
+    val pageNumber = matchResult?.groupValues?.get(1)?.toIntOrNull() ?: 1
+
+    Log.d("", "${pageNumber}")
+
+    return pageNumber
 }
 
 @Preview(showBackground = true)
