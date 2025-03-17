@@ -1,19 +1,15 @@
 package com.example.tpandroid.disney
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -48,7 +43,6 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
 
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
-
             Text(
                 text = stringResource(R.string.app_title_disney_characters),
                 modifier = Modifier
@@ -100,7 +94,7 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
             }
 
             HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(4.dp), thickness = 1.dp, color = Color(0xFFFDDFD9))
-// TODO: Elevated Card
+
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 charactersResult.let { result ->
                     when {

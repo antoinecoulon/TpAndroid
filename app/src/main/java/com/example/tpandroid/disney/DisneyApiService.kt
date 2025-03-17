@@ -1,6 +1,5 @@
 package com.example.tpandroid.disney
 
-import com.example.tpandroid.articles.ApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Response
@@ -26,5 +25,4 @@ interface DisneyApiService {
                 .create(DisneyApiService::class.java)
         }
     }
-
 }
