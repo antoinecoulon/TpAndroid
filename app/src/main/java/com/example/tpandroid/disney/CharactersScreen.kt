@@ -33,14 +33,16 @@ import com.example.tpandroid.ui.theme.TpButton
 
 @Composable
 fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = CharacterViewModel.Factory)) {
+
+    // Stateful
     val charactersResult by viewModel.characters.collectAsState()
     val infosResult by viewModel.infos.collectAsState()
-
     LaunchedEffect(Unit) {
         viewModel.fetchCharacters()
         viewModel.fetchInfos()
     }
 
+    // Affichage
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
             Text(
@@ -55,6 +57,7 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
 
             HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = 2.dp, color = Color(0xFFFDDFD9))
 
+            // Récupération des infos -> Affichage des boutons Page suivante/précédente
             infosResult.let { result ->
                 when {
                     result.isSuccess -> {
@@ -95,6 +98,7 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
 
             HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(4.dp), thickness = 1.dp, color = Color(0xFFFDDFD9))
 
+            // Récupération des personnages -> Affichage par page
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 charactersResult.let { result ->
                     when {
