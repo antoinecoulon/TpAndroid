@@ -1,6 +1,6 @@
 package com.example.tpandroid.disney
 
-import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.DividerDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,9 +21,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,8 +35,6 @@ import com.example.tpandroid.R
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
 import com.example.tpandroid.ui.theme.TpButton
-import com.example.tpandroid.ui.theme.WrapPaddingRowWeight
-import kotlin.math.log
 
 @Composable
 fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = CharacterViewModel.Factory)) {
@@ -63,23 +65,33 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
                 when {
                     result.isSuccess -> {
                         val info = infosResult.getOrNull()
+
+                        if (info?.nextPage != null) {
+                            val currentPage = extractPageNumberFromUrl(info.nextPage) - 1
+                            Text(
+                                "Page $currentPage / ${info.totalPages}",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                color = Color(0xFFFDDFD9)
+                            )
+                        }
+
                         Row {
-                            WrapPaddingRowWeight {
-                                TpButton(buttonText = "Page précédente", onClick = {
-                                    info?.previousPage?.let { url ->
-                                        val page = extractPageNumberFromUrl(url)
-                                        viewModel.fetchCharacters(page = page)
-                                    }
+                            if (info?.previousPage != null) {
+                                TpButton(buttonText = "Page précédente", modifier = Modifier.weight(1f).padding(1.dp), onClick = {
+                                    val page = extractPageNumberFromUrl(info.previousPage)
+                                    viewModel.fetchCharacters(page = page)
                                 })
-                                TpButton(buttonText = "Page suivante", onClick = {
-                                    info?.nextPage?.let { url ->
-                                        val page = extractPageNumberFromUrl(url)
-                                        viewModel.fetchCharacters(page = page)
-                                    }
+                            }
+                            if (info?.nextPage != null) {
+                                TpButton(buttonText = "Page suivante", modifier = Modifier.weight(1f).padding(1.dp), onClick = {
+                                    val page = extractPageNumberFromUrl(info.nextPage)
+                                    viewModel.fetchCharacters(page = page)
                                 })
                             }
                         }
                     }
+
                     result.isFailure -> {
                         val exception = result.exceptionOrNull()
                         throw Error(exception?.message)
@@ -87,30 +99,32 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
                 }
             }
 
-            HorizontalDivider(modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = Color(0xFFFDDFD9))
-
-            LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
+            HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(4.dp), thickness = 1.dp, color = Color(0xFFFDDFD9))
+// TODO: Elevated Card
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 charactersResult.let { result ->
                     when {
                         result.isSuccess -> {
                             val characters = result.getOrNull() ?: emptyList()
                             items(characters) { character ->
-                                Row {
+                                Card(
+                                    modifier = Modifier.padding(8.dp).border(1.dp, Color(0xFFFDDFD9)),
+                                    colors = CardDefaults.cardColors(Color.Transparent)
+                                ) {
                                     Text(
                                         text = character.name,
                                         modifier = Modifier.fillMaxWidth(),
                                         color = Color(0xFFFDDFD9),
-                                        textAlign = TextAlign.Center
+                                        textAlign = TextAlign.Center,
+                                        fontWeight = FontWeight.Bold
                                     )
-                                }
-                                Row {
+                                    HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = Color(0xFFFDDFD9))
                                     AsyncImage(
                                         model = character.imageUrl,
                                         contentDescription = "Image ${character.name}",
-                                        modifier = Modifier.fillMaxWidth().height(100.dp).border(1.dp, Color.Black)
+                                        modifier = Modifier.fillMaxWidth()
                                     )
                                 }
-                                HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = Color(0xFFFDDFD9))
                             }
                         }
                         result.isFailure -> {
@@ -125,12 +139,14 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
     }
 }
 
+/**
+ * Permet d'extraire le numéro de page des infos fournies par l'API
+ * @params: url (ex: info.nextPage: "https://api.disneyapi.dev/character?page=5"
+ */
 fun extractPageNumberFromUrl(url: String): Int {
     val regex = Regex("""page=(\d+)""")
     val matchResult = regex.find(url)
     val pageNumber = matchResult?.groupValues?.get(1)?.toIntOrNull() ?: 1
-
-    Log.d("", "${pageNumber}")
 
     return pageNumber
 }
