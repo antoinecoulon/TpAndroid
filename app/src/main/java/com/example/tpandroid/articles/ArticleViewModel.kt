@@ -1,24 +1,26 @@
 package com.example.tpandroid.articles
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
-class ArticleViewModel(private val articleRepository: ArticleRepository) : ViewModel() {
-    private val _articles = MutableStateFlow<Result<List<Article>>>(Result.success(emptyList()))
-    val articles: StateFlow<Result<List<Article>>> = _articles
+class ArticleViewModel() : ViewModel() {
 
-    fun fetchArticles() {
-        viewModelScope.launch {
-            val result = articleRepository.fetchArticles()
-            _articles.value = result
-        }
-    }
+    var articles = MutableStateFlow<List<Article>>(
+        mutableListOf(
+            Article("Chaussette", "Todo", "https://picsum.photos/200/300"),
+            Article("T-Shirt", "Todo", "https://picsum.photos/200/300")
+        )
+    )
+
+//    private val _articles = MutableStateFlow<Result<List<Article>>>(Result.success(emptyList()))
+//    val articles: StateFlow<Result<List<Article>>> = _articles
+//
+//    fun fetchArticles() {
+//        viewModelScope.launch {
+//            val result = articleRepository.fetchArticles()
+//            _articles.value = result
+//        }
+//    }
 
 //    fun addArticle(id: Int, title: String, desc: String, author: String, imgPath: String? = null) {
 //        val newArticle = Article(id, title, desc, author, imgPath)
@@ -27,20 +29,20 @@ class ArticleViewModel(private val articleRepository: ArticleRepository) : ViewM
 //    }
 
     // ViewModel Factory
-    companion object {
-        val Factory:ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                // Get Application Object from Extras...
-                val application = checkNotNull(extras[APPLICATION_KEY])
-
-                return ArticleViewModel(ArticleRepository()) as T
-            }
-        }
-    }
+//    companion object {
+//        val Factory:ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+//            @Suppress("UNCHECKED_CAST")
+//            override fun <T : ViewModel> create(
+//                modelClass: Class<T>,
+//                extras: CreationExtras
+//            ): T {
+//                // Get Application Object from Extras...
+//                val application = checkNotNull(extras[APPLICATION_KEY])
+//
+//                return ArticleViewModel(ArticleRepository()) as T
+//            }
+//        }
+//    }
 }
 
 
