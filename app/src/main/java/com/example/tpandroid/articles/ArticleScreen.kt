@@ -1,5 +1,6 @@
 package com.example.tpandroid.articles
 
+import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -45,7 +47,7 @@ fun ArticleScreen(viewModel: ArticleViewModel) {
 
     // J'écoute les changements de la liste d'articles dans le view model en temps réel
     val articlesState by viewModel.articles.collectAsState()
-    
+
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
             Text(
@@ -105,7 +107,8 @@ fun ArticleScreen(viewModel: ArticleViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun ArticleScreenPreview() {
-    var viewModel = ArticleViewModel()
+    val application = LocalContext.current.applicationContext as Application
+    var viewModel = ArticleViewModel(application)
     TpAndroidTheme {
         ArticleScreen(viewModel)
     }

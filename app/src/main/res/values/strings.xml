@@ -23,4 +23,5 @@
     <string name="app_btn_text_disney">Disney</string>
     <string name="app_title_disney_characters">Characters</string>
     <string name="app_btn_text_reload_articles">Reload articles</string>
+    <string name="app_dialog_text_loading_articles">Loading articles in progress...</string>
 </resources>

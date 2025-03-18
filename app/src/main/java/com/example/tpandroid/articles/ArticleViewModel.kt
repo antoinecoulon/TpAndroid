@@ -1,20 +1,22 @@
 package com.example.tpandroid.articles
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tpandroid.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class ArticleViewModel() : ViewModel() {
+class ArticleViewModel(application: Application) : AndroidViewModel(application) {
 
-    var articles = MutableStateFlow<List<Article>>(
-        mutableListOf()
-    )
+    var articles = MutableStateFlow<List<Article>>(mutableListOf())
 
     fun loadArticles() {
 
-        AppDialogHelper.get().showDialog("Loading articles in progress...")
+        // Méthode pour traduire le string en dehors du Composable, nécessite de changer les params de ArticleViewModel, NavGraph, du preview, etc...
+        val message = getApplication<Application>().getString(R.string.app_dialog_text_loading_articles)
+        AppDialogHelper.get().showDialog(message)
         viewModelScope.launch {
 
             // Simuler 1 sec de lag en dev pour voir la popup

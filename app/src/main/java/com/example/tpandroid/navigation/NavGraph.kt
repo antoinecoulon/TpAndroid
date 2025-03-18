@@ -1,6 +1,8 @@
 package com.example.tpandroid.navigation
 
+import android.app.Application
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
@@ -24,7 +26,7 @@ fun NavGraph (navController: NavHostController){
             SignUpScreen(navController)
         }
         composable(route = Screens.Articles.route){
-            ArticleScreen(viewModel = ArticleViewModel())
+            ArticleScreen(viewModel = ArticleViewModel(application = LocalContext.current.applicationContext as Application))
         }
         composable(route = Screens.Characters.route) {
             CharactersScreen()
