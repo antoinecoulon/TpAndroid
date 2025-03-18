@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tpandroid.R
+import com.example.tpandroid.articles.ProgressDialog
 
 // Main theme
 @Composable
@@ -38,6 +39,7 @@ fun Page(content: @Composable () -> Unit) {
                     modifier = Modifier.fillMaxSize()
                 )
                 content()
+                ProgressDialog()
             }
         }
     }
