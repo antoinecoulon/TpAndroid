@@ -16,17 +16,28 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
 
         // Méthode pour traduire le string en dehors du Composable, nécessite de changer les params de ArticleViewModel, NavGraph, du preview, etc...
         val message = getApplication<Application>().getString(R.string.app_dialog_text_loading_articles)
+
         AppDialogHelper.get().showDialog(message)
+
         viewModelScope.launch {
 
             // Simuler 1 sec de lag en dev pour voir la popup
             delay(1000)
-            val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
 
-            articles.value = apiResponse
+            // Maintenant le retour de l'API est un code, un message et le data
+            val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
 
             // On attend que la tâche ASYNC soit terminée
             AppDialogHelper.get().closeDialog()
+
+            // Afficher le message
+            // TODO: pour l'instant le message est dans la console
+            println(apiResponse.message)
+
+            // Tester si OK (code == 200)
+            if(apiResponse.code.equals("200")) {
+                articles.value = apiResponse.data!!
+            }
         }
     }
 

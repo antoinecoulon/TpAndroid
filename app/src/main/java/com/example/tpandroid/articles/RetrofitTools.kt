@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class RetrofitTools {
 
     companion object {
-        val BASE_URL = "https://raw.githubusercontent.com/Chocolaterie/EniWebService/refs/heads/main/api/"
+        val BASE_URL = "http://165.232.147.139:3000/"
 
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
