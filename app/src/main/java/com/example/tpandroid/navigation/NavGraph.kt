@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
 import com.example.tpandroid.articles.ArticleScreen
+import com.example.tpandroid.articles.ArticleViewModel
 import com.example.tpandroid.auth.HomeScreen
 import com.example.tpandroid.auth.RecoveryScreen
 import com.example.tpandroid.auth.SignUpScreen
@@ -23,7 +24,7 @@ fun NavGraph (navController: NavHostController){
             SignUpScreen(navController)
         }
         composable(route = Screens.Articles.route){
-            ArticleScreen()
+            ArticleScreen(viewModel = ArticleViewModel())
         }
         composable(route = Screens.Characters.route) {
             CharactersScreen()

@@ -27,10 +27,11 @@ import coil3.compose.AsyncImage
 import com.example.tpandroid.R
 import com.example.tpandroid.ui.theme.Page
 import com.example.tpandroid.ui.theme.TpAndroidTheme
+import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.WrapPadding
 
 @Composable
-fun ArticleScreen(viewModel: ArticleViewModel = viewModel()) {
+fun ArticleScreen(viewModel: ArticleViewModel) {
 
     // J'écoute les changements de la liste d'articles dans le view model en temps réel
     val articlesState by viewModel.articles.collectAsState()
@@ -47,11 +48,21 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel()) {
                 fontSize = 40.sp
             )
             Spacer(modifier = Modifier.weight(1f))
+
+            WrapPadding {
+                TpButton(
+                    buttonText = "Appel API", onClick = {
+                        viewModel.loadArticles()
+                    }
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
             LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
                 items(articlesState) { article ->
                     WrapPadding {
-                        ElevatedCard {
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                        ElevatedCard(modifier = Modifier) {
+                            Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                                 AsyncImage(
                                     model = article.imgPath,
                                     contentDescription = "Image ${article.title}",
@@ -85,7 +96,8 @@ fun ArticleScreen(viewModel: ArticleViewModel = viewModel()) {
 @Preview(showBackground = true)
 @Composable
 fun ArticleScreenPreview() {
+    var viewModel = ArticleViewModel()
     TpAndroidTheme {
-        ArticleScreen()
+        ArticleScreen(viewModel)
     }
 }
