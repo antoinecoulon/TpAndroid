@@ -1,6 +1,7 @@
 package com.example.tpandroid.auth
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,16 +17,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tpandroid.R
@@ -53,7 +59,11 @@ class SignUpActivity : ComponentActivity() {
 }
 
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController, viewModel: AuthViewModel) {
+    val requestAPIState by viewModel.signupRequestAPI.collectAsState()
+
+    val context = LocalContext.current
+
     Page {
         Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(32.dp)) {
             Spacer(modifier = Modifier.weight(1f))
@@ -74,57 +84,69 @@ fun SignUpScreen(navController: NavController) {
             )
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = requestAPIState.pseudo,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(pseudo = value) },
                     fieldText = stringResource(R.string.app_field_text_pseudo)
                 )
             }
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = requestAPIState.email,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(email = value) },
                     fieldText = stringResource(R.string.app_field_text_email)
                 )
             }
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
-                    fieldText = stringResource(R.string.app_field_text_password)
+                    value = requestAPIState.password,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(password = value) },
+                    fieldText = stringResource(R.string.app_field_text_password),
+                    visualTransformation = PasswordVisualTransformation()
                 )
             }
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
-                    fieldText = stringResource(R.string.app_field_text_password_confirm)
+                    value = requestAPIState.passwordConfirm,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(passwordConfirm = value) },
+                    fieldText = stringResource(R.string.app_field_text_password_confirm),
+                    visualTransformation = PasswordVisualTransformation()
                 )
             }
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = requestAPIState.cityCode,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(cityCode = value) },
                     fieldText = stringResource(R.string.app_field_text_city_code)
                 )
             }
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = requestAPIState.city,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(city = value) },
                     fieldText = stringResource(R.string.app_field_text_city)
                 )
             }
             WrapPadding {
                 TpTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = requestAPIState.phone,
+                    onValueChange = { value -> viewModel.signupRequestAPI.value = viewModel.signupRequestAPI.value.copy(phone = value) },
                     fieldText = stringResource(R.string.app_field_text_phone_number)
                 )
             }
             WrapPadding {
                 TpButton(
                     buttonText = stringResource(R.string.app_btn_text_sign_up),
-                    onClick = {navController.navigate(Screens.Home.route)}
+                    onClick = {
+                        viewModel.callSignupRequest(
+                            onRegisterSuccess = { message ->
+                                navController.navigate(Screens.Home.route)
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            },
+                            onRegisterFailure = { message ->
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -144,9 +166,11 @@ fun SignUpScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
+    var viewModel: AuthViewModel = viewModel()
     TpAndroidTheme {
         SignUpScreen(
-            navController = rememberNavController()
+            navController = rememberNavController(),
+            viewModel
         )
     }
 }

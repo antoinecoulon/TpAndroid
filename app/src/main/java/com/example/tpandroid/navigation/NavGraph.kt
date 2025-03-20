@@ -21,10 +21,10 @@ fun NavGraph (navController: NavHostController){
             HomeScreen(navController, viewModel = AuthViewModel())
         }
         composable(route = Screens.Recovery.route){
-            RecoveryScreen(navController)
+            RecoveryScreen(navController, viewModel = AuthViewModel())
         }
         composable(route = Screens.SignUp.route){
-            SignUpScreen(navController)
+            SignUpScreen(navController, viewModel = AuthViewModel())
         }
         composable(route = Screens.Articles.route){
             ArticleScreen(viewModel = ArticleViewModel(application = LocalContext.current.applicationContext as Application))

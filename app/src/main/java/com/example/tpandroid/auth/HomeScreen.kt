@@ -1,6 +1,7 @@
 package com.example.tpandroid.auth
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,11 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -57,7 +58,9 @@ class HomeActivity : ComponentActivity() {
 @Composable
 fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
     // On observe l'objet qui contient l'email et le mot de passe
-    val requestAPIState by viewModel.requestAPI.collectAsState()
+    val requestAPIState by viewModel.loginRequestAPI.collectAsState()
+
+    var context = LocalContext.current
 
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
@@ -82,7 +85,7 @@ fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
 
                 TpTextField(
                     value = requestAPIState.email,
-                    onValueChange = { value -> viewModel.requestAPI.value = viewModel.requestAPI.value.copy(email = value) },
+                    onValueChange = { value -> viewModel.loginRequestAPI.value = viewModel.loginRequestAPI.value.copy(email = value) },
                     fieldText = stringResource(R.string.app_field_text_email),
                     icon = {
                         Icon(
@@ -96,7 +99,7 @@ fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
             WrapPadding {
                 TpTextField(
                     value = requestAPIState.password,
-                    onValueChange = { value -> viewModel.requestAPI.value = viewModel.requestAPI.value.copy(password = value) },
+                    onValueChange = { value -> viewModel.loginRequestAPI.value = viewModel.loginRequestAPI.value.copy(password = value) },
                     fieldText = stringResource(R.string.app_field_text_password),
                     icon = {
                         Icon(
@@ -119,7 +122,13 @@ fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
                     buttonText = stringResource(R.string.app_btn_text_sign_in),
                     onClick = {
                         viewModel.callLoginRequest(
-                            onLoginSuccess = { navController.navigate(Screens.Articles.route) }
+                            onLoginSuccess = { message ->
+                                navController.navigate(Screens.Articles.route)
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            },
+                            onLoginFailure = { message ->
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
                         )
                     }
                 )
