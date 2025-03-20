@@ -73,25 +73,53 @@ fun SignUpScreen(navController: NavController) {
                 fontStyle = FontStyle.Italic
             )
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_pseudo))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_pseudo)
+                )
             }
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_email))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_email)
+                )
             }
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_password))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_password)
+                )
             }
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_password_confirm))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_password_confirm)
+                )
             }
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_city_code))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_city_code)
+                )
             }
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_city))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_city)
+                )
             }
             WrapPadding {
-                TpTextField(fieldText = stringResource(R.string.app_field_text_phone_number))
+                TpTextField(
+                    value = "",
+                    onValueChange = {},
+                    fieldText = stringResource(R.string.app_field_text_phone_number)
+                )
             }
             WrapPadding {
                 TpButton(

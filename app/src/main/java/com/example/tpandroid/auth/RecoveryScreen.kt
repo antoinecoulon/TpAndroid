@@ -61,6 +61,8 @@ fun RecoveryScreen(navController: NavController) {
             Spacer(modifier = Modifier.weight(1f))
             WrapPadding {
                 TpTextField(
+                    value = "",
+                    onValueChange = {},
                     fieldText = stringResource(R.string.app_field_text_email),
                     icon = {
                         Icon(

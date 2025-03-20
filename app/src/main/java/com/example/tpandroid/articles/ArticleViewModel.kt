@@ -35,7 +35,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
             println(apiResponse.message)
 
             // Tester si OK (code == 200)
-            if(apiResponse.code.equals("200")) {
+            if(apiResponse.code == "200") {
                 articles.value = apiResponse.data!!
             }
         }

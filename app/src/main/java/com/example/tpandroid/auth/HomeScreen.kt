@@ -14,12 +14,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,7 +55,9 @@ class HomeActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
+    val requestAPIState by viewModel.requestAPI.collectAsState()
+
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
             Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
@@ -72,7 +78,10 @@ fun HomeScreen(navController: NavController) {
                 )
             }
             WrapPadding {
+
                 TpTextField(
+                    value = requestAPIState.email,
+                    onValueChange = { value -> viewModel.requestAPI.value = viewModel.requestAPI.value.copy(email = value) },
                     fieldText = stringResource(R.string.app_field_text_email),
                     icon = {
                         Icon(
@@ -85,6 +94,8 @@ fun HomeScreen(navController: NavController) {
             }
             WrapPadding {
                 TpTextField(
+                    value = requestAPIState.password,
+                    onValueChange = { value -> viewModel.requestAPI.value = viewModel.requestAPI.value.copy(password = value) },
                     fieldText = stringResource(R.string.app_field_text_password),
                     icon = {
                         Icon(
@@ -92,7 +103,8 @@ fun HomeScreen(navController: NavController) {
                             contentDescription = "key",
                             tint = Color(0xFFFDDFD9)
                         )
-                    }
+                    },
+                    visualTransformation = PasswordVisualTransformation()
                 )
             }
             WrapPadding {
@@ -104,7 +116,11 @@ fun HomeScreen(navController: NavController) {
             WrapPadding {
                 TpButton(
                     buttonText = stringResource(R.string.app_btn_text_sign_in),
-                    onClick = {navController.navigate(Screens.Articles.route)}
+                    onClick = {
+                        viewModel.callLoginRequest(
+                            onLoginSuccess = { navController.navigate(Screens.Articles.route) }
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -138,7 +154,8 @@ fun HomeScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
+    val viewModel = AuthViewModel()
     TpAndroidTheme {
-        HomeScreen(navController = rememberNavController())
+        HomeScreen(navController = rememberNavController(), viewModel)
     }
 }

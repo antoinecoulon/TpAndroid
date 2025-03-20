@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tpandroid.R
@@ -47,19 +49,27 @@ fun Page(content: @Composable () -> Unit) {
 
 // Text field
 @Composable
-fun TpTextField(fieldText : String = "", icon: @Composable (() -> Unit)? = null){
+fun TpTextField(
+    fieldText : String = "",
+    value: String = "",
+    onValueChange: (String) -> Unit = {},
+    icon: @Composable (() -> Unit)? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None
+){
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = "",
-        onValueChange = {},
+        value = value,
+        onValueChange = onValueChange,
         placeholder = {
             Text(text = fieldText, color = Color(0xFFFDDFD9), fontSize = 16.sp)
         },
+        textStyle = TextStyle(color = Color(0xFFFDDFD9)),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent
         ),
-        leadingIcon = icon
+        leadingIcon = icon,
+        visualTransformation = visualTransformation
     )
 }
 
