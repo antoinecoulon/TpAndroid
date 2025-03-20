@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tpandroid.articles.AppDialogHelper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,7 +58,6 @@ class AuthViewModel(): ViewModel() {
 
             when (apiResponse.code) {
                 "200" -> {
-                    // TODO: Popup confirm
                     var newUser = User(
                         email = apiResponse.data!!.email,
                         password = apiResponse.data!!.password,
@@ -68,7 +66,6 @@ class AuthViewModel(): ViewModel() {
                         city = apiResponse.data!!.city,
                         phone = apiResponse.data!!.phone
                     )
-                    println(apiResponse.message)
 
                     withContext(Dispatchers.Main) {
                         onRegisterSuccess("${apiResponse.code}: ${apiResponse.message}")

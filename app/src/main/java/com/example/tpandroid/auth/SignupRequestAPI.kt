@@ -8,6 +8,4 @@ data class SignupRequestAPI(
     var cityCode: String = "",
     var city: String = "",
     var phone: String = ""
-) {
-
-}
+)

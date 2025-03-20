@@ -166,7 +166,7 @@ fun SignUpScreen(navController: NavController, viewModel: AuthViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    var viewModel: AuthViewModel = viewModel()
+    val viewModel: AuthViewModel = viewModel()
     TpAndroidTheme {
         SignUpScreen(
             navController = rememberNavController(),

@@ -60,7 +60,7 @@ fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
     // On observe l'objet qui contient l'email et le mot de passe
     val requestAPIState by viewModel.loginRequestAPI.collectAsState()
 
-    var context = LocalContext.current
+    val context = LocalContext.current
 
     Page {
         Column(modifier = Modifier.padding(32.dp)) {
