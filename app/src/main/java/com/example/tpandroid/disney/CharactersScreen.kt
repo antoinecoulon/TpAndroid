@@ -1,11 +1,16 @@
 package com.example.tpandroid.disney
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -16,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -107,23 +113,30 @@ fun CharactersScreen(viewModel: CharacterViewModel = viewModel(factory = Charact
                             val characters = result.getOrNull() ?: emptyList()
                             items(characters) { character ->
                                 Card(
-                                    modifier = Modifier.padding(8.dp).border(1.dp, Color(0xFFFDDFD9)),
+                                    modifier = Modifier.padding(8.dp)
+                                        .border(1.dp, Color(0xFFFDDFD9))
+                                        .fillMaxWidth().height(100.dp),
                                     colors = CardDefaults.cardColors(Color.Transparent)
                                 ) {
-                                    Text(
-                                        text = character.name,
-                                        modifier = Modifier.fillMaxWidth(),
-                                        color = Color(0xFFFDDFD9),
-                                        textAlign = TextAlign.Center,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = Color(0xFFFDDFD9))
-                                    AsyncImage(
-                                        model = character.imageUrl,
-                                        contentDescription = "Image ${character.name}",
-                                        modifier = Modifier.fillMaxWidth(),
-                                        contentScale = ContentScale.Crop
-                                    )
+                                    Row {
+                                        AsyncImage(
+                                            model = character.imageUrl,
+                                            contentDescription = "Image ${character.name}",
+                                            modifier = Modifier.width(160.dp),
+                                            contentScale = ContentScale.Crop,
+                                            alignment = Alignment.Center
+                                        )
+                                        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                                            Text(
+                                                text = character.name,
+                                                modifier = Modifier.fillMaxWidth(),
+                                                color = Color(0xFFFDDFD9),
+                                                textAlign = TextAlign.Center,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                        }
+
+                                    }
                                 }
                             }
                         }
