@@ -55,6 +55,9 @@ class HomeActivity : ComponentActivity() {
     }
 }
 
+// TODO: Il devrait normalement y avoir un MainActivity sans le Composable HomeScreen() qui contient toutes les routes (NavHost)
+// TODO: réorganiser les fichiers (/helpers, /api, ...)
+
 @Composable
 fun HomeScreen(navController: NavController, viewModel: AuthViewModel) {
     // On observe l'objet qui contient l'email et le mot de passe

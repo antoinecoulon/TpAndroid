@@ -43,21 +43,6 @@ import com.example.tpandroid.ui.theme.TpButton
 import com.example.tpandroid.ui.theme.TpTextField
 import com.example.tpandroid.ui.theme.WrapPadding
 
-class SignUpActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TpAndroidTheme {
-                Surface {
-                    val navController = rememberNavController()
-                    NavGraph(navController = navController)
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun SignUpScreen(navController: NavController, viewModel: AuthViewModel) {
     val requestAPIState by viewModel.signupRequestAPI.collectAsState()
